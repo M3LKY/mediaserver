@@ -159,7 +159,7 @@ const getFeedPosts = async (req, res) => {
 };
 
 const getUserPosts = async (req, res) => {
-  const { username } = req.user.username;
+  const { username } = req.body;
   try {
     const user = await User.findOne({ username });
     if (!user) {
