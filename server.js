@@ -45,4 +45,4 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-// ... rest of your code
+server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
