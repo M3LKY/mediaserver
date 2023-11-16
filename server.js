@@ -12,7 +12,7 @@ import { app, server } from "./socket/socket.js";
 dotenv.config();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://connecto-ec2t.onrender.com"],
+    origin: "https://connecto-kappa.vercel.app",
     credentials: true,
   })
 );
