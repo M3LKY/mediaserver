@@ -16,6 +16,15 @@ app.use(
     credentials: true,
   })
 );
+
+// Add CORS headers middleware
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://connecto-kappa.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 Connet();
 
 const PORT = process.env.PORT || 5000;
@@ -35,3 +44,5 @@ app.use(cookieParser());
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
+
+// ... rest of your code
