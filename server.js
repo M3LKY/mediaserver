@@ -12,14 +12,14 @@ import { app, server } from "./socket/socket.js";
 dotenv.config();
 app.use(
   cors({
-    origin: "https://connecto-kappa.vercel.app",
+    origin: "https://connecto-ec2t.onrender.com",
     credentials: true,
   })
 );
 
 // Add CORS headers middleware
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://connecto-kappa.vercel.app");
+  res.setHeader("Access-Control-Allow-Origin", "https://connecto-ec2t.onrender.com");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
