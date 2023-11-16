@@ -7,23 +7,25 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import { v2 as cloudinary } from "cloudinary";
-import { app, server } from "./socket/socket.js";
+// import { app, server } from "./socket/socket.js";
 
 dotenv.config();
-app.use(
-  cors({
-    origin: "https://connecto-kappa.vercel.app",
-    credentials: true,
-  })
-);
+const app = express()
+app.use(cors())
+// app.use(
+//   cors({
+//     origin: "https://connecto-kappa.vercel.app",
+//     credentials: true,
+//   })
+// );
 
 // Add CORS headers middleware
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://connecto-kappa.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://connecto-kappa.vercel.app");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
 
 Connet();
 
@@ -45,4 +47,4 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-// ... rest of your code
+app.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
