@@ -18,16 +18,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow cookies
 
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    // Log incoming headers for debugging
-    res.status(200).json({"Incoming Headers": req.headers});
-
-    // Continue with the next middleware or route handler
-    next();
-  }
+  
 });
 
 
