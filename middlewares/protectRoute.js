@@ -5,20 +5,24 @@ const protectRoute = async (req, res, next) => {
   try {
     const authorizationHeader = req.headers.authorization;
 
-    if (!authorizationHeader) {
-      return res.status(200).json({ message: req.headers });
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+    res.status(200).json({"wrong Headers": req.headers});
+
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const token = authorizationHeader.split(" ")[1];
+    // Extract the token from the Authorization header
+    const token = authorizationHeader.split(' ')[1];
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.status(200).json({ message: `${decoded}` });
 
     const user = await User.findById(decoded.userId).select("-password");
 
-    
-    req.user = user;
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
+    req.user = user;
     next();
   } catch (err) {
     res.status(500).json({ message: err.message });
