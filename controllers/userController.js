@@ -77,10 +77,7 @@ const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      user?.password || ""
-    );
+    const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
 
     if (!user || !isPasswordCorrect)
       return res.status(400).json({ error: "Invalid username or password" });
@@ -90,7 +87,7 @@ const loginUser = async (req, res) => {
       await user.save();
     }
 
-    generateTokenAndSetCookie(user._id, res);
+    const token = generateTokenAndSetCookie(user._id, res);
 
     res.status(200).json({
       _id: user._id,
@@ -99,6 +96,7 @@ const loginUser = async (req, res) => {
       username: user.username,
       bio: user.bio,
       profilePic: user.profilePic,
+      token, 
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
