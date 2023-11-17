@@ -23,7 +23,7 @@ app.use((req, res, next) => {
     res.sendStatus(200);
   } else {
     // Log incoming headers for debugging
-    console.log('Incoming Headers:', req.headers);
+    res.status(200).json({"Incoming Headers": req.headers});
 
     // Continue with the next middleware or route handler
     next();
