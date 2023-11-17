@@ -6,7 +6,7 @@ const protectRoute = async (req, res, next) => {
     const authorizationHeader = req.headers.authorization;
 
     if (!authorizationHeader) {
-      return res.status(200).json({ message: `${authorizationHeader}` });
+      return res.status(200).json({ message: authorizationHeader });
     }
 
     const token = authorizationHeader.split(" ")[1];
