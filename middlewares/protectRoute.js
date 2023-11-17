@@ -9,10 +9,10 @@ const protectRoute = async (req, res, next) => {
       return res.status(200).json({ message: `${authorizationHeader}` });
     }
 
-    const token = authorizationHeader.split(' ')[1];
+    const token = authorizationHeader.split(" ")[1];
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-     res.status(200).json({ message: `${decoded}` });
+    res.status(200).json({ message: `${decoded}` });
 
     const user = await User.findById(decoded.userId).select("-password");
 
