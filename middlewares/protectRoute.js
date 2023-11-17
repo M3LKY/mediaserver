@@ -7,11 +7,11 @@ const protectRoute = async (req, res, next) => {
 
     if (!token) {
       console.log("No token found in cookies");
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(200).json({ message: `${token}` });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    res.status(200).json({ message: `${decoded}` });
     const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
