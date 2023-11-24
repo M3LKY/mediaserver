@@ -5,6 +5,7 @@ import generateTokenAndSetCookie from "../utils/helper/generateTokenAndSetCookie
 import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 
+
 const getUserProfile = async (req, res) => {
   // We will fetch user profile either with username or userId
   // query is either username or userId
@@ -184,6 +185,8 @@ const updateUser = async (req, res) => {
     user.profilePic = profilePic || user.profilePic;
     user.bio = bio || user.bio;
 
+    
+
     user = await user.save();
 
     // Find all posts that this user replied and update username and userProfilePic fields
@@ -200,8 +203,16 @@ const updateUser = async (req, res) => {
 
     // password should be null in response
     user.password = null;
-
-    res.status(200).json(user);
+    const token = req.headers.authorization.split(' ')[1]
+    res.status(200).json({
+      _id: user._id,
+      name: name || user.name,
+      email: email || user.email,
+      username: username || user.username,
+      bio: bio || user.bio,
+      profilePic: profilePic || user.profilePic,
+      token, 
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
     console.log("Error in updateUser: ", err.message);
